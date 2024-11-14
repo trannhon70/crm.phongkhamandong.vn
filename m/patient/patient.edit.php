@@ -229,6 +229,8 @@ if ($_POST) {
 			$r["remind"] = $remind_post;
 		}
 	} 
+
+	if (isset($po["money"]) && $mode == "edit") $r["money"] = $po["money"];
 	
 	$sqldata = $db->sqljoin($r);
 	
@@ -824,6 +826,13 @@ if (in_array($uinfo["part_id"], array(4,9,12)) && $line["status"] == 1) { ?>
 			</select>&nbsp;<span class="intro">KHI BENH NHAN TOI KHAM MOI CHON</span>
 		</td>
 	</tr>
+	<?php if ($mode == "edit" && $uinfo["part_admin"] == "1"){ ?>
+		<tr>
+		<td class="left">DOANH THU</td>
+		<td class="right"><input type="number" name="money" id="money" value="<?php echo $line["money"]; ?>" class="input" style="width:200px" <?php echo $ce["money"]; ?> > <span class="intro">VND</span></td>
+	</tr>
+	<?php } ?>
+	
 </table>
 <?php } ?>
 

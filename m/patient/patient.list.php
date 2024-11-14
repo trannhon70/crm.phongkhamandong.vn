@@ -45,6 +45,7 @@ if($_SESSION[$cfgSessionName]["part_id"]==11){
 		"�ط�" => array("width"=>"24", "align"=>"center", "sort"=>"huifang", "order"=>"desc"),
 		"��Լ���" => array("align"=>"center", "sort"=>"status_1", "order"=>"desc", "sort2"=>"addtime desc"),
 		"����ʱ��" => array("width"=>"70", "align"=>"center", "sort"=>"addtime", "order"=>"desc"),
+		"Doanh thu" => array("width"=>"80", "align"=>"center"),
 		"����" => array("width"=>"80", "align"=>"center"),
 	);
 }
@@ -73,6 +74,7 @@ else
 		"��Լ���" => array("align"=>"center", "sort"=>"status_1", "order"=>"desc", "sort2"=>"addtime desc"),
 		"����ʱ��" => array("width"=>"70", "align"=>"center", "sort"=>"addtime", "order"=>"desc"),
 		"�ط�����" => array("width"=>"70", "align"=>"center", "sort"=>"remind", "order"=>"desc"),
+		"Doanh thu" => array("width"=>"80", "align"=>"center"),
 		"����" => array("width"=>"80", "align"=>"center"),
 	);
 }
@@ -486,6 +488,9 @@ foreach ($list_data as $li) {
 		$r["�ط�"] = $li["huifang"] != '' ? ('<a href="javascript:;" onclick="alert(this.title)" title="'.trim(strip_tags($li["huifang"])).'">��</a>') : '';
 		$r["����ʱ��"] = str_replace('|', '<br>', @date("Y-m-d|H:i", $li["addtime"]));
 		$r["�ط�����"] = str_replace('|', '<br>', @date("Y-m-d|H:i", $li["remind"]));
+		if($uinfo['part_admin'] === '1' && $li["money"] !== 0){
+			$r["Doanh thu"] =  $li["money"];
+		}
 
 		// ����:
 		$op = array();
