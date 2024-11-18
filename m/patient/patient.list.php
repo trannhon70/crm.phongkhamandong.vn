@@ -482,7 +482,9 @@ foreach ($list_data as $li) {
 		$r["����"] = $part_id_name[$li["part_id"]];
 		$r["����"] = $li["depart"] > 0 ? $depart_id_name[$li["depart"]] : "";
 		$r["����"] = $li["is_local"] == 2 ? $li["area"] : $area_id_name[$li["is_local"]];
-		$r["��ע"] = cut($li["memo"], 22, "��");
+		$r["��ע"] = '<span data-copy="' . $li["memo"] . '" onclick="copyToClipboard(this)" style="cursor: pointer; text-decoration: underline;" title="Click to copy">'
+             . cut($li["memo"], 22, "...") 
+             . '</span>';
 		$r["�ͷ�"] = $li["author"]. ($li["edit_log"] ? ("<br><a href='javascript:;' onclick='alert(this.title)' title='".str_replace("<br>", "&#13", strim($li["edit_log"], '<br>'))."' style='color:#8050C0'>��</a>") : '');
 		$r["��Լ���"] = $status_array[$li["status"]];
 		$r["�ط�"] = $li["huifang"] != '' ? ('<a href="javascript:;" onclick="alert(this.title)" title="'.trim(strip_tags($li["huifang"])).'">��</a>') : '';
@@ -562,4 +564,18 @@ foreach ($list_data as $li) {
 $pagelink = pagelinkc($page, $pagecount, $count, make_link_info($link_param, "page"), "button");
 include $mod.".list.tpl.php";
 
+
 ?>
+
+<script>
+	async function copyToClipboard(element) {
+		const text = element.getAttribute('data-copy');
+		await copyText(text);
+		console.log(text, 'text');
+	}
+
+	async function copyText(text) {
+		await navigator.clipboard.writeText(text);
+		alert("Copy : " + text);
+	}
+</script>
