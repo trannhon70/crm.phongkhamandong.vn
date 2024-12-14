@@ -246,12 +246,13 @@ if($uinfo['part_id']==2&&$uinfo['part_admin']!=1){
       $list_data[$key] = $data; 
     }
   }
-}elseif($uinfo['part_id']==4){
-  foreach($list_data as $key=>$data){
-      $data['tel'] = '--'; 
-      $list_data[$key] = $data; 
-  }  
 }
+// elseif($uinfo['part_id']==4){
+//   foreach($list_data as $key=>$data){
+//       $data['tel'] = '--'; 
+//       $list_data[$key] = $data; 
+//   }  
+// }
 
 
 // id => name:
@@ -449,7 +450,6 @@ if ($sort == "����ʱ��" || ($sort == "" && $default_sort == "���
 }
 
 $back_url = make_back_url();
-
 // ��������:
 foreach ($list_data as $li) {
 	$id = $li["id"];
@@ -461,17 +461,11 @@ foreach ($list_data as $li) {
 		$r["�Ա�"] = $li["sex"];
 		$r["����"] = $li["age"] > 0 ? $li["age"] : "";
 		//$r["�绰"] = ec($li["tel"], "DECODE", md5($encode_password));
-		if ($uinfo["show_tel"] == 1 || $li["author"] == $username) {
-			$tel = $li["tel"];
-			if($uinfo["show_tel"] == 1){
-				$r["�绰"] = $tel;
-			}
-			if($li["author"] == $username){
-				$r["�绰"] = (strlen($tel) === 10) ? "****" . substr($tel, 4) : $tel;
-			}
-			
+		$tel = $li["tel"];
+		if ($uinfo["show_tel"] == 1 ) {
+			$r["�绰"] = $tel;
 		} else {
-			$r["�绰"] = "-";
+			$r["�绰"] = (strlen($tel) === 10) ? "****" . substr($tel, 4) : $tel;
 		}
 		$r["QQ"] = $li["qq"];
 		$r["ר�Һ�"] = $li["zhuanjia_num"];
