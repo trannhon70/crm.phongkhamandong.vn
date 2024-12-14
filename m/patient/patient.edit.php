@@ -418,10 +418,15 @@ $title = $mode == "edit" ? "�޸Ĳ�������" : "�����µĲ
 .dischk {width:6em; height:16px; line-height:16px; vertical-align:middle; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; padding:0; margin:0; }
 </style>
 <script language="javascript">
+	function isValidPhoneNumber(phone) {
+    const regex = /^\d{10}$/; // Kiểm tra xem có đúng 10 chữ số hay không
+    return regex.test(phone);
+}
 function check_data() {
 	var oForm = document.mainform;
-	console.log(oForm.sex, 'form');
-	
+	if(isValidPhoneNumber(oForm.tel.value) !== true){
+		alert("So dien thoai khong hop le!"); oForm.tel.focus(); return false;
+	}
 	if (oForm.name.value == "") {
 		alert("�����벡��������"); oForm.name.focus(); return false;
 	}

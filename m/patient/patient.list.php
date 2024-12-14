@@ -72,6 +72,7 @@ else
 		"�ͷ�" => array("width"=>"50", "align"=>"center", "sort"=>"author", "order"=>"asc"),
 		"�ط�" => array("width"=>"24", "align"=>"center", "sort"=>"huifang", "order"=>"desc"),
 		"��Լ���" => array("align"=>"center", "sort"=>"status_1", "order"=>"desc", "sort2"=>"addtime desc"),
+		"Ghi chu" => array("align"=>"center", "sort"=>"content", "order"=>"desc", "sort2"=>"desc"),
 		"����ʱ��" => array("width"=>"70", "align"=>"center", "sort"=>"addtime", "order"=>"desc"),
 		"�ط�����" => array("width"=>"70", "align"=>"center", "sort"=>"remind", "order"=>"desc"),
 		"Doanh thu" => array("width"=>"80", "align"=>"center"),
@@ -461,7 +462,14 @@ foreach ($list_data as $li) {
 		$r["����"] = $li["age"] > 0 ? $li["age"] : "";
 		//$r["�绰"] = ec($li["tel"], "DECODE", md5($encode_password));
 		if ($uinfo["show_tel"] == 1 || $li["author"] == $username) {
-			$r["�绰"] = $li["tel"];
+			$tel = $li["tel"];
+			if($uinfo["show_tel"] == 1){
+				$r["�绰"] = $tel;
+			}
+			if($li["author"] == $username){
+				$r["�绰"] = (strlen($tel) === 10) ? "****" . substr($tel, 4) : $tel;
+			}
+			
 		} else {
 			$r["�绰"] = "-";
 		}
@@ -487,6 +495,7 @@ foreach ($list_data as $li) {
              . '</span>';
 		$r["�ͷ�"] = $li["author"]. ($li["edit_log"] ? ("<br><a href='javascript:;' onclick='alert(this.title)' title='".str_replace("<br>", "&#13", strim($li["edit_log"], '<br>'))."' style='color:#8050C0'>��</a>") : '');
 		$r["��Լ���"] = $status_array[$li["status"]];
+		$r["Ghi chu"] = $status_array[$li["content"]];
 		$r["�ط�"] = $li["huifang"] != '' ? ('<a href="javascript:;" onclick="alert(this.title)" title="'.trim(strip_tags($li["huifang"])).'">��</a>') : '';
 		$r["����ʱ��"] = str_replace('|', '<br>', @date("Y-m-d|H:i", $li["addtime"]));
 		$r["�ط�����"] = str_replace('|', '<br>', @date("Y-m-d|H:i", $li["remind"]));
