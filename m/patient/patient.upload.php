@@ -24,7 +24,8 @@ $hkt_files = $db->query($sql_file); //array
 
 
 // $target_dir = "uploads/";
-$target_dir = $_SERVER["DOCUMENT_ROOT"] . 'uploads/';
+$target_dir = $_SERVER["DOCUMENT_ROOT"] . '/crm.phongkhamdakhoaandong.vn.old/uploads/';
+
 
 // file sẽ được ghi
 
