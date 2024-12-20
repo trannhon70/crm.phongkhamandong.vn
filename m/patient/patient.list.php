@@ -230,7 +230,7 @@ $offset = ($page - 1) * $pagesize;
 $time = time();
 $today_begin = mktime(0,0,0);
 $today_end = $today_begin + 24 * 3600;
-$list_data = $db->query("select *,(order_date-$time) as remain_time, if(order_date<$today_begin, 1, if(order_date>$today_end, 2, 3)) as order_sort, if(status=1,2, if(status=2,1,0)) as status_1 from $table $sqlwhere $sqlgroup $sqlsort limit $offset,$pagesize");
+$list_data = $db->query("select *,(order_date-$time) as remain_time, if(order_date<$today_begin, 1, if(order_date>$today_end, 2, 3)) as order_sort, if(status=1,2, if(status=2,1,0)) as status_1, f.file_link from $table t LEFT JOIN file f ON t.id = f.file_IDdathen $sqlwhere $sqlgroup $sqlsort limit $offset,$pagesize");
 $s_sql = $db->sql;
 
 //echo "<!--";
@@ -496,11 +496,11 @@ foreach ($list_data as $li) {
 		if($uinfo['part_admin'] === '1' && $li["money"] !== 0){
 			$r["Doanh thu"] =  $li["money"];
 		}
-
+		$number = count(json_decode($li['file_link'], true));
 		// ����:
 		$op = array();
 
-		$op[] = "<a href='?op=upload&id=$id' class='op'><img src='/res/img/hkt-upload.png' width='16' height='16' align='absmiddle' alt='upload word'></a>";
+		$op[] = "<a href='?op=upload&id=$id' class='op'><span style='color: white; background-color: red; border-radius: 50%; padding: 3px 5px; ' >$number</span><img src='/res/img/hkt-upload.png' width='16' height='16' align='absmiddle' alt='upload word'></a>";
 		
 		if (check_power("view")) {
 			$op[] = "<a href='?op=view&id=$id' class='op'><img src='/res/img/b_detail.gif' width='16' height='16' align='absmiddle' alt='�鿴����'></a>";
